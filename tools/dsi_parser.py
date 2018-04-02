@@ -37,11 +37,13 @@ class Dsi(section.Section):
 
     def parse(self):
         self.parse_dsmcDownloadDataHeader()
+        self.parse_body()
 
+    def parse_body(self):
         self.get_serverId()
         self.get_compatibilityDescriptor()
         self.get_privateDataLength()
-        self.skip_bytes(self.privateDataLength)
+        self.get_privateData()
 
     def parse_dsmcDownloadDataHeader(self):
         self.get_protocolDiscriminator()
