@@ -181,6 +181,7 @@ def test_get_crc():
     dsi.parse_dsmcDownloadDataHeader()   
     dsi.get_serverId()
     dsi.get_compatibilityDescriptor()
+    dsi.get_privateDataLength()
     dsi.get_privateData()
 
     assert dsi.position == 0x67
