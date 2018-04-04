@@ -72,9 +72,9 @@ class Dii(section.Section):
         self.compatibilityDescriptor = self.get_bytes(2)
         return self.compatibilityDescriptor
 
-    def get_numberOfModule(self):
-        self.numberOfModule = self.get_bytes(2)
-        return self.numberOfModule
+    def get_numberOfModules(self):
+        self.numberOfModules = self.get_bytes(2)
+        return self.numberOfModules
 
     def get_moduleId(self):
         self.moduleId = self.get_bytes(2)
@@ -113,7 +113,7 @@ class Dii(section.Section):
     def get_moduleInfo(self, numberOfModule):
         self.module = []
         
-        for i in range(self.numberOfModule):
+        for i in range(self.numberOfModules):
             parsed_module = self.Module()
             parsed_module.id = self.get_moduleId()
             parsed_module.size = self.get_moduleSize()
@@ -137,8 +137,8 @@ class Dii(section.Section):
         self.get_tCDownloadWindow()
         self.get_tCDownloadScenario()
         self.get_compatibilityDescriptor()
-        self.get_numberOfModule()
-        self.get_moduleInfo(self.numberOfModule)
+        self.get_numberOfModules()
+        self.get_moduleInfo(self.numberOfModules)
         self.get_privateDataLength()
         self.get_privateDataByte(self.privateDataLength)
         self.get_crc()
@@ -147,4 +147,34 @@ class Dii(section.Section):
         self.parse_dsmcDownloadDataHeader()
         self.parse_body()
 
+if __name__ == '__main__':
+    dii = Dii(None)
+    dii.read_from_file('ref_dsm-cc_dii.bin')
+
+    dii.parse()
+
+    print('###################')
+    print('protocolDiscriminator : 0x%02X' % dii.protocolDiscriminator)
+    print('dsmccType : 0x%02X' % dii.dsmccType)
+    print('messageId : 0x%02X' % dii.messageId)
+    print('transactionID : 0x%02X' % dii.transactionID)
+    print('reserved : 0x%02X' % dii.reserved)
+    print('adaptationLength : 0x%02X' % dii.adaptationLength)
+    print('###################')
+    print('downloadId : 0x%08X' % dii.downloadId)
+    print('blockSize : 0x%04X' % dii.blockSize)
+    print('windowSize : 0x%02X' % dii.windowSize)
+    print('tCDownloadWindow : 0x%04X' % dii.tCDownloadWindow)
+    print('tCDownloadScenario : 0x%04X' % dii.tCDownloadScenario)
+    print('compatibilityDescriptor : 0x%04X' % dii.compatibilityDescriptor)
     
+    print('numberOfModules : 0x%04X' % dii.numberOfModules)
+    for i in range(dii.numberOfModules):
+        print('module[%d].id : 0x%04X' % (i, dii.module[i].id))
+        print('module[%d].size : 0x%08X' % (i, dii.module[i].size))
+        print('module[%d].version : 0x%02X' % (i, dii.module[i].version))
+        print('module[%d].infoLength : 0x%02X' % (i, dii.module[i].infoLength))
+        print('')
+    
+    print('privateDataLength : 0x%04X' % dii.privateDataLength)
+    print('crc : 0x%08X' % dii.crc)    

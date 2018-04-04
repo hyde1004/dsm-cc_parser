@@ -195,7 +195,7 @@ def test_get_compatiblityDescriptor():
 
     assert dii.get_compatibilityDescriptor() == 0x0000
 
-def test_get_numberOfModule():
+def test_get_numberOfModules():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
     dii.parse_dsmcDownloadDataHeader()
@@ -207,7 +207,7 @@ def test_get_numberOfModule():
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
 
-    assert dii.get_numberOfModule() == 0x03
+    assert dii.get_numberOfModules() == 0x03
 
 def test_get_moduleId():
     dii = dii_parser.Dii(None)
@@ -220,7 +220,7 @@ def test_get_moduleId():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
+    dii.get_numberOfModules()
 
     assert dii.get_moduleId() == 0x0000  
 
@@ -235,7 +235,7 @@ def test_get_moduleSize():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
+    dii.get_numberOfModules()
     dii.get_moduleId()
     assert dii.get_moduleSize() == 0x0000034C
 
@@ -250,7 +250,7 @@ def test_get_moduleVersion():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
+    dii.get_numberOfModules()
     dii.get_moduleId()
     dii.get_moduleSize()
     assert dii.get_moduleVersion() == 0x0D
@@ -266,7 +266,7 @@ def test_get_moduleInfoLength():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
+    dii.get_numberOfModules()
     dii.get_moduleId()
     dii.get_moduleSize()
     dii.get_moduleVersion()
@@ -284,7 +284,7 @@ def test_get_moduleInfoByte():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
+    dii.get_numberOfModules()
     dii.get_moduleId()
     dii.get_moduleSize()
     dii.get_moduleVersion()
@@ -304,9 +304,9 @@ def test_get_moduleInfo():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
+    dii.get_numberOfModules()
 
-    dii.get_moduleInfo(dii.numberOfModule)
+    dii.get_moduleInfo(dii.numberOfModules)
 
     # 1'st module
     assert dii.module[0].id == 0x0000
@@ -337,8 +337,8 @@ def test_get_privateDataLength():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
-    dii.get_moduleInfo(dii.numberOfModule)
+    dii.get_numberOfModules()
+    dii.get_moduleInfo(dii.numberOfModules)
 
     assert dii.get_privateDataLength() == 0x0000
 
@@ -353,8 +353,8 @@ def test_get_privateDataByte():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
-    dii.get_moduleInfo(dii.numberOfModule)
+    dii.get_numberOfModules()
+    dii.get_moduleInfo(dii.numberOfModules)
     dii.get_privateDataLength()
 
     dii.get_privateDataByte(dii.privateDataLength) 
@@ -371,8 +371,8 @@ def test_get_crc():
     dii.get_tCDownloadWindow()
     dii.get_tCDownloadScenario()
     dii.get_compatibilityDescriptor()
-    dii.get_numberOfModule()
-    dii.get_moduleInfo(dii.numberOfModule)
+    dii.get_numberOfModules()
+    dii.get_moduleInfo(dii.numberOfModules)
     dii.get_privateDataLength()
     dii.get_privateDataByte(dii.privateDataLength)     
 
