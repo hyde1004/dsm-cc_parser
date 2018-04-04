@@ -65,3 +65,11 @@ def test_section_read_from_file():
     assert dsi.buffer[1] == 0x03
     assert len(dsi.buffer) == 0x6B # length
     assert dsi.length == 0x6B # length
+
+def test_section_get_block_bytes():
+    input_numbers = [0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x010]
+    input_bytes = bytes(input_numbers)
+    dsi = section.Section(input_bytes)   
+
+    assert dsi.get_block_bytes(1) == b'\n'
+    assert dsi.get_block_bytes(4) == b'\x0b\x0c\r\x0e'

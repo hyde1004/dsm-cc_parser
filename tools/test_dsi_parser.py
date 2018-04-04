@@ -40,8 +40,6 @@ def test_get_dsmccType():
     assert dsi.position == 0x01
     assert dsi.get_dsmccType() == 0x03 # Download message
 
-
-
 def test_get_messageId():
     dsi = dsi_parser.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')

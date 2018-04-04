@@ -33,3 +33,9 @@ class Section:
 
     def skip_bytes(self, bytes_to_be_skipped):
         self.position += bytes_to_be_skipped
+
+    def get_block_bytes(self, bytes_to_be_read):
+        bytes_data = self.buffer[self.position:self.position + bytes_to_be_read]
+        self.position += bytes_to_be_read
+        
+        return bytes_data 
