@@ -2,7 +2,7 @@ import pytest
 import dii_parser
 
 def test_dii_parser_init():
-    input_numbers = [0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x010]
+    input_numbers = [0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10]
     input_bytes = bytes(input_numbers)
     dii = dii_parser.Dii(input_bytes)
 
@@ -113,7 +113,7 @@ def test_get_adaptation():
 def test_dsmcDownloadDataHeader():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
 
     assert dii.protocolDiscriminator == 0x11
     assert dii.dsmccType == 0x03
@@ -128,14 +128,14 @@ def test_dsmcDownloadDataHeader():
 def test_get_downloadId():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
 
     assert dii.get_downloadId() == 0x878E5C63
 
 def test_get_blockSize():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
 
     assert dii.get_blockSize() == 0x0FE2 
@@ -143,7 +143,7 @@ def test_get_blockSize():
 def test_get_windowSize():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
 
@@ -152,7 +152,7 @@ def test_get_windowSize():
 def test_get_ackPeriod():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -162,7 +162,7 @@ def test_get_ackPeriod():
 def test_get_tCDownloadWindow():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -173,7 +173,7 @@ def test_get_tCDownloadWindow():
 def test_get_tCDownloadScenario():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -185,7 +185,7 @@ def test_get_tCDownloadScenario():
 def test_get_compatiblityDescriptor():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -198,7 +198,7 @@ def test_get_compatiblityDescriptor():
 def test_get_numberOfModules():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -212,7 +212,7 @@ def test_get_numberOfModules():
 def test_get_moduleId():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -227,7 +227,7 @@ def test_get_moduleId():
 def test_get_moduleSize():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -242,7 +242,7 @@ def test_get_moduleSize():
 def test_get_moduleVersion():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -258,7 +258,7 @@ def test_get_moduleVersion():
 def test_get_moduleInfoLength():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -276,7 +276,7 @@ def test_get_moduleInfoLength():
 def test_get_moduleInfoByte():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -296,7 +296,7 @@ def test_get_moduleInfoByte():
 def test_get_moduleInfo():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -329,7 +329,7 @@ def test_get_moduleInfo():
 def test_get_privateDataLength():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -345,7 +345,7 @@ def test_get_privateDataLength():
 def test_get_privateDataByte():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -363,7 +363,7 @@ def test_get_privateDataByte():
 def test_get_crc():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.get_downloadId()
     dii.get_blockSize()
     dii.get_windowSize()
@@ -382,7 +382,7 @@ def test_body():
     dii = dii_parser.Dii(None)
     dii.read_from_file('ref_dsm-cc_dii.bin')
 
-    dii.parse_dsmcDownloadDataHeader()
+    dii.parse_dsmccMessageHeader()
     dii.parse_body()
     
     assert dii.crc == 0xF42B7C0B

@@ -36,7 +36,7 @@ class Dsi(section.Section):
         self.skip_bytes(bytes)
 
     def parse(self):
-        self.parse_dsmcDownloadDataHeader()
+        self.parse_dsmccMessageHeader()
         self.parse_body()
 
     def parse_body(self):
@@ -45,7 +45,7 @@ class Dsi(section.Section):
         self.get_privateDataLength()
         self.get_privateData()
 
-    def parse_dsmcDownloadDataHeader(self):
+    def parse_dsmccMessageHeader(self):
         self.get_protocolDiscriminator()
         self.get_dsmccType()
         self.get_messageId()

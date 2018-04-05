@@ -34,7 +34,7 @@ class Dii(section.Section):
     def get_adaptation(self, bytes):
         self.skip_bytes(bytes)
 
-    def parse_dsmcDownloadDataHeader(self):
+    def parse_dsmccMessageHeader(self):
         self.get_protocolDiscriminator()
         self.get_dsmccType()
         self.get_messageId()
@@ -144,7 +144,7 @@ class Dii(section.Section):
         self.get_crc()
 
     def parse(self):
-        self.parse_dsmcDownloadDataHeader()
+        self.parse_dsmccMessageHeader()
         self.parse_body()
 
 if __name__ == '__main__':

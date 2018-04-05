@@ -2,7 +2,7 @@ import pytest
 import dsi_parser
 
 def test_dsi_init():
-    input_numbers = [0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x010]
+    input_numbers = [0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10]
     input_bytes = bytes(input_numbers)
     dsi = dsi_parser.Dsi(input_bytes)
 
@@ -111,12 +111,12 @@ def test_get_adaptation():
     dsi.get_reserved()
     adaptation_length = dsi.get_adaptationLength()
     dsi.get_adaptation(adaptation_length)
-#    assert dsi.position == 0x0A
+    assert dsi.position == 0x0A
 
 def test_dsmcDownloadDataHeader():
     dsi = dsi_parser.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
-    dsi.parse_dsmcDownloadDataHeader()
+    dsi.parse_dsmccMessageHeader()
     assert dsi.protocolDiscriminator == 0x11
     assert dsi.dsmccType == 0x03
     assert dsi.messageId == 0x1006
@@ -130,7 +130,7 @@ def test_dsmcDownloadDataHeader():
 def test_get_serverId():
     dsi = dsi_parser.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
-    dsi.parse_dsmcDownloadDataHeader()   
+    dsi.parse_dsmccMessageHeader()   
 
     old_position = dsi.position
     dsi.get_serverId() # 20 bytes
@@ -140,7 +140,7 @@ def test_get_serverId():
 def test_get_compatibilityDescriptor():
     dsi = dsi_parser.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
-    dsi.parse_dsmcDownloadDataHeader()   
+    dsi.parse_dsmccMessageHeader()   
 
     dsi.get_serverId()
     assert dsi.position == 0x20
@@ -149,7 +149,7 @@ def test_get_compatibilityDescriptor():
 def test_get_privateDataLength():
     dsi = dsi_parser.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
-    dsi.parse_dsmcDownloadDataHeader()   
+    dsi.parse_dsmccMessageHeader()   
     dsi.get_serverId()
     dsi.get_compatibilityDescriptor()
 
@@ -176,7 +176,7 @@ def test_parse():
 def test_get_crc():
     dsi = dsi_parser.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
-    dsi.parse_dsmcDownloadDataHeader()   
+    dsi.parse_dsmccMessageHeader()   
     dsi.get_serverId()
     dsi.get_compatibilityDescriptor()
     dsi.get_privateDataLength()
