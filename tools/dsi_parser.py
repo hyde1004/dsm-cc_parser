@@ -33,7 +33,7 @@ class Dsi(section.Section):
         return self.messageLength
 
     def get_adaptation(self, bytes):
-        self.skip_bytes(bytes)
+        self.adaptation = self.get_block_bytes(bytes)
 
     def parse(self):
         self.parse_dsmccMessageHeader()
@@ -64,7 +64,7 @@ class Dsi(section.Section):
         print('adaptationLength : 0x%02X' % self.adaptationLength)
         
     def get_serverId(self):
-        self.skip_bytes(20)
+        self.serverId = self.get_block_bytes(20)
 
     def get_compatibilityDescriptor(self):
         self.compatibilityDescriptor = self.get_bytes(2)
@@ -75,7 +75,7 @@ class Dsi(section.Section):
         return self.privateDataLength
 
     def get_privateData(self):
-        self.skip_bytes(self.privateDataLength)
+        self.privateData = self.get_block_bytes(self.privateDataLength)
 
     def display_dsi_info(self):
         print('serverID : ')
