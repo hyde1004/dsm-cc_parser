@@ -24,6 +24,7 @@ def test_extract_data_init():
     assert dsi_data.buffer[1] == 0x03
     assert dsi_data.buffer[2] == 0x10
 
+@pytest.mark.skip(reason='no need to write file test any more')
 def test_write_to_file():
     input_string_dsi = '''
     1103 1006 8000 0001 FF00 005B FFFF FFFF  
