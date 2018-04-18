@@ -86,6 +86,7 @@ class Ddb(section.Section):
         print('downloadId : 0x%08X' % ddb.downloadId)
         print('reserved : 0x%02X' % ddb.reserved)
         print('adaptationLength : %02X' % ddb.adaptationLength)
+        print('messageLength : 0x%04X' % ddb.messageLength)
         print('moduleId : 0x%04X' % ddb.moduleId)
         print('moduleVersion : 0x%02X' % ddb.moduleVersion)
         print('blockNumber : 0x%04X' % ddb.blockNumber)

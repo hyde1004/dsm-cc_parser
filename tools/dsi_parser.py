@@ -54,7 +54,7 @@ class Dsi(section.Section):
         self.get_adaptationLength()
         self.get_messageLength()
 
-    def display_dsmcDownloadDataHeader(self):
+    def display_dsmccMessageHeader(self):
         print('---------------------------')
         print('protocolDiscriminator : 0x%02X' % self.protocolDiscriminator)
         print('dsmccType : 0x%02X' % self.dsmccType)
@@ -76,3 +76,17 @@ class Dsi(section.Section):
 
     def get_privateData(self):
         self.skip_bytes(self.privateDataLength)
+
+    def display_dsi_info(self):
+        print('serverID : ')
+        print('')
+
+    def display(self):
+        self.display_dsmccMessageHeader()
+        self.display_dsi_info()
+
+if __name__ == '__main__':
+    dsi = Dsi(None)
+    dsi.read_from_file('ref_dsm-cc_dsi.bin')
+    dsi.parse()
+    dsi.display()
