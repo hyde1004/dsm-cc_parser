@@ -32,7 +32,7 @@ class Dii(section.Section):
         return self.messageLength
 
     def get_adaptation(self, bytes):
-        self.skip_bytes(bytes)
+        self.adaptation = self.get_block_bytes(bytes)
 
     def parse_dsmccMessageHeader(self):
         self.get_protocolDiscriminator()
@@ -93,7 +93,7 @@ class Dii(section.Section):
         return self.moduleInfoLength
 
     def get_moduleInfoByte(self, bytes):
-        self.skip_bytes(bytes)
+        self.moduleInfoByte = self.get_block_bytes(bytes)
 
     def get_privateDataLength(self):
         self.privateDataLength = self.get_bytes(2)
