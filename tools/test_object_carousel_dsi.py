@@ -1,10 +1,10 @@
 import pytest
-import dsi_object_carousel_parser
+import object_carousel_dsi
 
 def test_init():
     input_numbers = [0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10]
     input_bytes = bytes(input_numbers)
-    dsi = dsi_object_carousel_parser.Dsi(input_bytes)
+    dsi = object_carousel_dsi.Dsi(input_bytes)
 
     assert dsi.get_bytes(1) == 0x0a
     assert dsi.position == 1
@@ -16,7 +16,7 @@ def test_init():
     assert dsi.position == 7 
 
 def test_parse():
-    dsi = dsi_object_carousel_parser.Dsi(None)
+    dsi = object_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
     dsi.parse()
     assert dsi.position == 0x67

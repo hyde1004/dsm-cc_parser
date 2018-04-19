@@ -1,10 +1,10 @@
 import pytest
-import ddb_parser
+import data_carousel_ddb
 
 def test_dii_parser_init():
     input_numbers = [0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10]
     input_bytes = bytes(input_numbers)
-    ddb = ddb_parser.Ddb(input_bytes)
+    ddb = data_carousel_ddb.Ddb(input_bytes)
 
     assert ddb.get_bytes(1) == 0x0a
     assert ddb.position == 1
@@ -16,7 +16,7 @@ def test_dii_parser_init():
     assert ddb.position == 7
 
 def test_read_dsi_data_from_file():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')
 
     assert ddb.buffer[0] == 0x11
@@ -26,20 +26,20 @@ def test_read_dsi_data_from_file():
     assert len(ddb.buffer) == 0x0362
 
 def test_get_protocolDiscriminator():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
 
     assert ddb.get_protocolDiscriminator() == 0x11  
 
 def test_get_dsmccType():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
 
     assert ddb.get_dsmccType() == 0x03   
 
 def test_get_messageId():  
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -47,7 +47,7 @@ def test_get_messageId():
     assert ddb.get_messageId() == 0x1003  
 
 def test_get_downloadId():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -56,7 +56,7 @@ def test_get_downloadId():
     assert ddb.get_downloadId() == 0x878E5C63  
 
 def test_get_reserved():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -66,7 +66,7 @@ def test_get_reserved():
     assert ddb.get_reserved() == 0xFF
 
 def test_get_adaptationLength():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -77,7 +77,7 @@ def test_get_adaptationLength():
     assert ddb.get_adaptationLength() == 0x00
 
 def test_get_messageLength():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -89,7 +89,7 @@ def test_get_messageLength():
     assert ddb.get_messageLength() == 0x0352
 
 def test_get_adaptation():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -104,7 +104,7 @@ def test_get_adaptation():
     assert ddb.position == 0x000C
 
 def test_get_moduleId():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -118,7 +118,7 @@ def test_get_moduleId():
     assert ddb.get_moduleId() == 0x0000
 
 def test_get_moduleVersion():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -137,7 +137,7 @@ def test_get_moduleVersion():
 #     pass
 
 def test_get_blockNumber():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -154,7 +154,7 @@ def test_get_blockNumber():
     assert ddb.get_blockNumber() == 0x0000
 
 def test_get_blockDataByte():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -176,7 +176,7 @@ def test_get_blockDataByte():
     assert ddb.position == 0x035E
 
 def test_get_crc():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')  
     ddb.get_protocolDiscriminator()
     ddb.get_dsmccType()
@@ -198,14 +198,14 @@ def test_get_crc():
     assert ddb.get_crc() == 0xEDCB2BD5        
 
 def test_parse_dsmccDownloadDataHeader():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')
 
     ddb.parse_dsmccDownloadDataHeader()
     assert ddb.position == 0x000C 
 
 def test_parse_body():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin')
 
     ddb.parse_dsmccDownloadDataHeader()
@@ -214,7 +214,7 @@ def test_parse_body():
     assert ddb.moduleVersion == 0x0D
 
 def test_parse():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_0.bin') 
 
     ddb.parse()
@@ -223,7 +223,7 @@ def test_parse():
     assert ddb.crc == 0xEDCB2BD5
 
 def test_parse_ddb_module_B_section0_file():
-    ddb = ddb_parser.Ddb(None)
+    ddb = data_carousel_ddb.Ddb(None)
     ddb.read_from_file('ref_dsm-cc_ddb-module_B-section0.bin') 
     ddb.parse()
     assert ddb.moduleId == 0x0B

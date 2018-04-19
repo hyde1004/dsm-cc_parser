@@ -1,10 +1,10 @@
 import pytest
-import dsi_parser
+import data_carousel_dsi
 
 def test_dsi_init():
     input_numbers = [0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10]
     input_bytes = bytes(input_numbers)
-    dsi = dsi_parser.Dsi(input_bytes)
+    dsi = data_carousel_dsi.Dsi(input_bytes)
 
     assert dsi.get_bytes(1) == 0x0a
     assert dsi.position == 1
@@ -16,7 +16,7 @@ def test_dsi_init():
     assert dsi.position == 7 
 
 def test_read_dsi_data_from_file():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     assert dsi.buffer[0] == 0x11
@@ -25,14 +25,14 @@ def test_read_dsi_data_from_file():
     assert dsi.length == 0x6B # length
 
 def test_get_protocolDiscriminator():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     assert dsi.position == 0x00
     assert dsi.get_protocolDiscriminator() == 0x11
 
 def test_get_dsmccType():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     dsi.get_protocolDiscriminator() 
@@ -41,7 +41,7 @@ def test_get_dsmccType():
     assert dsi.get_dsmccType() == 0x03 # Download message
 
 def test_get_messageId():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     dsi.get_protocolDiscriminator() 
@@ -51,7 +51,7 @@ def test_get_messageId():
     assert dsi.get_messageId() == 0x1006 # DownloadServerInitiate
 
 def test_get_transactionID():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     dsi.get_protocolDiscriminator() 
@@ -62,7 +62,7 @@ def test_get_transactionID():
     assert dsi.get_transactionID() == 0x80000001 # transactionID
 
 def test_get_reserved():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     dsi.get_protocolDiscriminator() 
@@ -74,7 +74,7 @@ def test_get_reserved():
     assert dsi.get_reserved() == 0xFF  
 
 def test_get_adaptationLength():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     dsi.get_protocolDiscriminator() 
@@ -87,7 +87,7 @@ def test_get_adaptationLength():
     assert dsi.get_adaptationLength() == 0x00  
 
 def test_get_messageLength():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     dsi.get_protocolDiscriminator() 
@@ -101,7 +101,7 @@ def test_get_messageLength():
     assert dsi.get_messageLength() == 0x005B   
 
 def test_get_adaptation():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
 
     dsi.get_protocolDiscriminator() 
@@ -114,7 +114,7 @@ def test_get_adaptation():
     assert dsi.position == 0x0A
 
 def test_dsmcDownloadDataHeader():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
     dsi.parse_dsmccMessageHeader()
     assert dsi.protocolDiscriminator == 0x11
@@ -128,7 +128,7 @@ def test_dsmcDownloadDataHeader():
     #assert dsi.display_dsmcDownloadDataHeader() == True
 
 def test_get_serverId():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
     dsi.parse_dsmccMessageHeader()   
 
@@ -138,7 +138,7 @@ def test_get_serverId():
     assert dsi.position == 0x20
 
 def test_get_compatibilityDescriptor():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
     dsi.parse_dsmccMessageHeader()   
 
@@ -147,7 +147,7 @@ def test_get_compatibilityDescriptor():
     assert dsi.get_compatibilityDescriptor() == 0x0000
     
 def test_get_privateDataLength():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
     dsi.parse_dsmccMessageHeader()   
     dsi.get_serverId()
@@ -158,7 +158,7 @@ def test_get_privateDataLength():
 
 
 def test_parse():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
     dsi.parse()
     assert dsi.position == 0x67
@@ -174,7 +174,7 @@ def test_parse():
     assert dsi.privateDataLength == 0x0043
 
 def test_get_crc():
-    dsi = dsi_parser.Dsi(None)
+    dsi = data_carousel_dsi.Dsi(None)
     dsi.read_from_file('ref_dsm-cc_dsi.bin')
     dsi.parse_dsmccMessageHeader()   
     dsi.get_serverId()
